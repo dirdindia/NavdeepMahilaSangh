@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import PageHero from "../components/PageHero";
 
 const metrics = [
@@ -41,11 +42,18 @@ export default function Impact() {
       />
 
       <section className="container-page mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {metrics.map((m) => (
-          <div key={m.label} className="surface-card p-8">
+        {metrics.map((m, idx) => (
+          <motion.div 
+            key={m.label} 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: idx * 0.1 }}
+            className="surface-card p-8"
+          >
             <p className="font-display text-4xl font-semibold text-gradient-warm">{m.value}</p>
             <p className="mt-2 text-sm text-muted-foreground">{m.label}</p>
-          </div>
+          </motion.div>
         ))}
       </section>
 

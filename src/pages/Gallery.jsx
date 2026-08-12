@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import PageHero from "../components/PageHero";
 const heroImg = "/hero.jpg";
 const educationImg = "/education.jpg";
@@ -48,7 +49,12 @@ export default function Gallery() {
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((item, idx) => (
-            <figure
+            <motion.figure
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4, delay: idx * 0.05, ease: "easeIn" }}
               key={`${item.alt}-${idx}`}
               className="group relative m-0 overflow-hidden rounded-3xl shadow-[var(--shadow-soft)]"
             >
@@ -63,7 +69,7 @@ export default function Gallery() {
               <figcaption className="hero-overlay absolute inset-x-0 bottom-0 p-5 text-sm font-medium text-ink-foreground opacity-0 transition-opacity group-hover:opacity-100">
                 {item.alt}
               </figcaption>
-            </figure>
+            </motion.figure>
           ))}
         </div>
       </section>

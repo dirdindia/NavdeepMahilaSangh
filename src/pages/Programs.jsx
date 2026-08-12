@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import PageHero from "../components/PageHero";
 const educationImg = "/education.jpg";
 const shgImg = "/shg.jpg";
@@ -47,52 +48,70 @@ export default function Programs() {
 
       <section className="container-page mt-20 space-y-16">
         {programs.map((p, i) => (
-          <article
-            key={p.name}
-            className={`grid gap-10 lg:grid-cols-2 lg:items-center ${
-              i % 2 === 1 ? "lg:[&>figure]:order-2" : ""
-            }`}
-          >
-            <figure className="m-0">
-              <img
-                src={p.image}
-                alt={p.title}
-                loading="lazy"
-                width={1200}
-                height={900}
-                className="h-80 w-full rounded-3xl object-cover shadow-[var(--shadow-soft)]"
-              />
-            </figure>
-            <div>
-              <p className="text-xs font-semibold tracking-[0.24em] text-primary uppercase">
-                {p.name}
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold">{p.title}</h2>
-              <p className="mt-4 text-muted-foreground">{p.text}</p>
-              <ul className="mt-6 flex flex-wrap gap-2">
-                {p.points.map((pt) => (
-                  <li
-                    key={pt}
-                    className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground"
-                  >
-                    {pt}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </article>
-        ))}
-      </section>
+            <motion.div 
+              key={p.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              <article
+                className={`grid gap-10 lg:grid-cols-2 lg:items-center ${
+                  i % 2 === 1 ? "lg:[&>figure]:order-2" : ""
+                }`}
+              >
+                <figure className="m-0">
+                  <motion.img
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: "easeIn" }}
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    width={1200}
+                    height={900}
+                    className="h-80 w-full rounded-3xl object-cover shadow-[var(--shadow-soft)]"
+                  />
+                </figure>
+                <div>
+                  <p className="text-xs font-semibold tracking-[0.24em] text-primary uppercase">
+                    {p.name}
+                  </p>
+                  <h2 className="mt-3 text-3xl font-semibold">{p.title}</h2>
+                  <p className="mt-4 text-muted-foreground">{p.text}</p>
+                  <ul className="mt-6 flex flex-wrap gap-2">
+                    {p.points.map((pt) => (
+                      <li
+                        key={pt}
+                        className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground"
+                      >
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            </motion.div>
+          ))}
+        </section>
 
-      <section className="container-page mt-24 text-center">
-        <h2 className="text-3xl font-semibold">Want to support a specific program?</h2>
-        <Link
-          to="/contact"
-          className="gradient-warm mt-6 inline-flex rounded-full px-8 py-3.5 text-sm font-semibold text-primary-foreground"
-        >
-          Talk to our team
-        </Link>
-      </section>
-    </>
-  );
-}
+        <section className="container-page mt-24 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-3xl font-semibold">Want to support a specific program?</h2>
+            <Link
+              to="/contact"
+              className="gradient-warm mt-6 inline-flex rounded-full px-8 py-3.5 text-sm font-semibold text-primary-foreground"
+            >
+              Talk to our team
+            </Link>
+          </motion.div>
+        </section>
+      </>
+    );
+  }

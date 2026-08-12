@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import PageHero from "../components/PageHero";
 const shgImg = "/shg.jpg";
 
@@ -34,7 +35,11 @@ export default function About() {
       />
 
       <section className="container-page mt-20 grid gap-12 lg:grid-cols-2 lg:items-center">
-        <img
+        <motion.img
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeIn" }}
           src={shgImg}
           alt="Women's self-help group meeting"
           loading="lazy"

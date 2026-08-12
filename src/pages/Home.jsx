@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
 const heroImg = "/hero.jpg";
 const educationImg = "/education.jpg";
 const shgImg = "/shg.jpg";
@@ -54,7 +56,10 @@ export default function Home() {
   return (
     <>
       <section className="relative overflow-hidden">
-        <img
+        <motion.img
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeIn" }}
           src={heroImg}
           alt="Women learning tailoring at a Navdeep Mahila Sangh skill centre"
           width={1600}
@@ -63,16 +68,31 @@ export default function Home() {
         />
         <div className="hero-overlay absolute inset-0" />
         <div className="container-page relative flex min-h-[86vh] flex-col justify-center py-24">
-          <span className="w-fit rounded-full border border-ink-foreground/25 bg-ink/30 px-4 py-1.5 text-xs font-semibold tracking-[0.22em] text-ink-foreground uppercase backdrop-blur">
+          <motion.span 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-fit rounded-full border border-ink-foreground/25 bg-ink/30 px-4 py-1.5 text-xs font-semibold tracking-[0.22em] text-ink-foreground uppercase backdrop-blur"
+          >
             Navdeep Mahila Sangh
-          </span>
-          <h1 className="mt-6 max-w-4xl text-4xl leading-[1.05] font-semibold text-ink-foreground sm:text-6xl lg:text-7xl">
+          </motion.span>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-6 max-w-4xl text-4xl leading-[1.05] font-semibold text-ink-foreground sm:text-6xl lg:text-7xl"
+          >
             When a woman rises, an entire village rises with her.
-          </h1>
-          <p className="mt-6 max-w-2xl text-base text-ink-foreground/80 sm:text-lg">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-6 max-w-2xl text-base text-ink-foreground/80 sm:text-lg"
+          >
             We are a women-led grassroots organisation building education, livelihood, health and
             legal support systems for rural women across Rajasthan and Madhya Pradesh.
-          </p>
+          </motion.p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
               to="/get-involved"
@@ -90,15 +110,41 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="border-y border-border bg-card py-4 overflow-hidden flex whitespace-nowrap">
+        <motion.div
+          className="flex items-center shrink-0"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
+        >
+          {/* Duplicate content to make it infinite */}
+          {[1, 2].map((group) => (
+            <div key={group} className="flex items-center shrink-0">
+              {["Empowering Women", "Building Futures", "Transforming Villages", "Education for All", "Health & Nutrition"].map((word) => (
+                <span key={word} className="mx-6 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
+                  • {word} 
+                </span>
+              ))}
+            </div>
+          ))}
+        </motion.div>
+      </section>
+
       <section className="container-page -mt-14 relative">
         <div className="grid gap-px overflow-hidden rounded-3xl border border-border bg-border shadow-[var(--shadow-lift)] sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.label} className="bg-card px-6 py-8 text-center">
+          {stats.map((s, idx) => (
+            <motion.div 
+              key={s.label} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              className="bg-card px-6 py-8 text-center"
+            >
               <p className="font-display text-3xl font-semibold text-primary sm:text-4xl">
                 {s.value}
               </p>
               <p className="mt-2 text-sm text-muted-foreground">{s.label}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -126,7 +172,11 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <img
+          <motion.img
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeIn" }}
             src={shgImg}
             alt="Self-help group meeting under a tree"
             loading="lazy"
@@ -134,7 +184,11 @@ export default function Home() {
             height={900}
             className="h-64 w-full rounded-3xl object-cover shadow-[var(--shadow-soft)] sm:mt-10"
           />
-          <img
+          <motion.img
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeIn", delay: 0.1 }}
             src={educationImg}
             alt="Girls studying at a village learning centre"
             loading="lazy"
@@ -158,9 +212,20 @@ export default function Home() {
           </Link>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {programs.map((p) => (
-            <article key={p.title} className="surface-card overflow-hidden">
-              <img
+          {programs.map((p, idx) => (
+            <motion.article 
+              key={p.title} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              className="surface-card overflow-hidden"
+            >
+              <motion.img
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: "easeIn" }}
                 src={p.image}
                 alt={p.title}
                 loading="lazy"
@@ -172,7 +237,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold">{p.title}</h3>
                 <p className="mt-3 text-sm text-muted-foreground">{p.text}</p>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </section>
